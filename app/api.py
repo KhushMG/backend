@@ -13,21 +13,6 @@ from app.services.read_csv_file import read_csv
 from pydantic import BaseModel
 from scipy.sparse import hstack
 
-app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://anime-rec-psi.vercel.app"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-
-class AnimeRequest(BaseModel):
-    anime_name: str
-
-
 # Global variables for lazy loading and caching
 model = None
 latent_space = None
@@ -61,6 +46,18 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://anime-rec-psi.vercel.app"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+class AnimeRequest(BaseModel):
+    anime_name: str
+
 
 @app.get("/")
 def read_root():
@@ -75,8 +72,8 @@ def autocomplete(query: str = Query(..., min_length=1)):
 
 @app.post("/recommendations/")
 def recommend_anime(request: AnimeRequest):
-  try:
-    recommendations = get_recommendations(df, latent_space, request.anime_name)
-    return recommendations
-  except IndexError:
-    raise HTTPException(status_code=404, detail="Anime not found")
+    try:
+        recommendations = get_recommendations(df, latent_space, request.anime_name)
+        return recommendations
+    except IndexError:
+        raise HTTPException(status_code=404, detail="Anime not found")
