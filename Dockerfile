@@ -6,13 +6,12 @@ WORKDIR /app
 
 # Copy the current directory contents into the container at /app
 COPY . /app
-
+COPY data/anime_filtered.csv /app/data/anime_filtered.csv
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENV GOOGLE_CLOUD_STR="https://storage.cloud.google.com/anime-rec/anime_filtered.csv"
 
-# Make port 8000 available to the world outside this container
+# Make port 8080 available to the world outside this container
 EXPOSE 8080
 
 # Command to run the app using Uvicorn

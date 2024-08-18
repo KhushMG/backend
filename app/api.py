@@ -11,15 +11,13 @@ from app.models.autoencoder import model_train_and_save
 import os
 from dotenv import load_dotenv
 
-
-load_dotenv()
-storage_url = os.getenv("GOOGLE_CLOUD_STR")
-
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust this to be more specific if needed
+    allow_origins=[
+        "https://localhost:3000"
+    ], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -28,7 +26,8 @@ class AnimeRequest(BaseModel):
     anime_name: str
 
 
-df = read_csv(storage_url)
+df = read_csv("data/anime_filtered.csv")
+
 # df["synopsis"].fillna("", inplace=True)
 df["synopsis"] = df["synopsis"].fillna("")
 

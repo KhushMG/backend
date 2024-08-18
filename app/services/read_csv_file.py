@@ -1,10 +1,17 @@
 import pandas as pd
+from google.cloud import storage
+from io import StringIO
+import os
+
+
 
 # read in csv, remove anime with weird genres, and drop irrelevant columns
 def read_csv(path):
+
     df = pd.read_csv(
         path, dtype={"Episodes": "object", "Ranked": "float64"}, engine="python"
     )
+
     df.columns = df.columns.str.strip()
     df["Episodes"] = pd.to_numeric(df["Episodes"], errors="coerce")
     df["Episodes"] = df["Episodes"].fillna(0)
@@ -15,7 +22,7 @@ def read_csv(path):
     df = df[df["Name"] != "Unknown"]
     df = df[df["Type"] != "movie"]
     df.reset_index(drop=True, inplace=True)
-    
+
     # No one would want to see these.
     unwanted_genres = ["Ecchi", "Harem", "Hentai"]
 
