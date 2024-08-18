@@ -8,7 +8,12 @@ from scipy.sparse import hstack
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from app.models.autoencoder import model_train_and_save
+import os
+from dotenv import load_dotenv
 
+
+load_dotenv()
+storage_url = os.getenv("GOOGLE_CLOUD_STR")
 
 app = FastAPI()
 
@@ -23,7 +28,7 @@ class AnimeRequest(BaseModel):
     anime_name: str
 
 
-df = read_csv("./data/anime_filtered.csv")
+df = read_csv(storage_url)
 # df["synopsis"].fillna("", inplace=True)
 df["synopsis"] = df["synopsis"].fillna("")
 

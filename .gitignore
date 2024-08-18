@@ -27,6 +27,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
@@ -74,6 +75,7 @@ backend/.cache/
 backend/.vscode/
 backend/.idea/
 backend/.ipynb_checkpoints/
+data/anime_filtered.csv
 
 # Python Bytecode
 *.py[cod]

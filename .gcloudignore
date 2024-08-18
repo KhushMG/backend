@@ -1,0 +1,32 @@
+# Exclude node_modules (common for Node.js projects)
+
+/node_modules
+
+# Exclude the gcloudignore file itself
+
+.gcloudignore
+
+# Exclude large data files that are not needed in deployment
+
+data/anime_filtered.csv
+
+# Exclude Git files
+
+.git
+.gitignore
+
+# Exclude Python cache files
+
+**pycache**/
+
+# Exclude build configuration that is not needed in the deployment environment
+
+/setup.cfg
+
+# Additional suggestions:
+
+# Exclude temporary and log files
+
+tmp/
+_.log
+_.tmp
