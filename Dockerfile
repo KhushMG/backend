@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 ENV GOOGLE_CLOUD_STR="https://storage.cloud.google.com/anime-rec/anime_filtered.csv"
 
 # Make port 8000 available to the world outside this container
-EXPOSE 8000
+EXPOSE 8080
 
 # Command to run the app using Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
