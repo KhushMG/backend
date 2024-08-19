@@ -67,7 +67,7 @@ def read_root():
 @app.get("/autocomplete/")
 def autocomplete(query: str = Query(..., min_length=1)):
     suggestions = fuzzy_match_anime(df, query)
-    return JSONResponse(content=suggestions, headers={"Access-Control-Allow-Origin": "https://anime-rec-psi.vercel.app"})
+    return JSONResponse(content=suggestions)
 
 
 @app.post("/recommendations/")
@@ -75,8 +75,7 @@ def recommend_anime(request: AnimeRequest):
     try:
         recommendations = get_recommendations(df, latent_space, request.anime_name)
         return JSONResponse(
-            content=recommendations,
-            headers={"Access-Control-Allow-Origin": "https://anime-rec-psi.vercel.app"},
+            content=recommendations
         )
     except IndexError:
         raise HTTPException(status_code=404, detail="Anime not found")
